@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Singlish to Sinhala Converter Extension Guide | Tech Lasiya</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Description -->
+    <meta name="description" content="Learn how to install and use the Singlish to Sinhala converter Chrome extension. Easily convert English phonetic typing to Sinhala script in any text field.">
+    <!-- Keywords -->
+    <meta name="keywords" content="Singlish to Sinhala, Sinhala converter, Chrome extension, Sinhala typing tool, Tech Lasiya, Sinhala language tools">
+    <!-- Author -->
+    <meta name="author" content="Lasindu Rukshan (Rukshan Rodrigo)">
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Singlish to Sinhala Converter Extension Guide">
+    <meta property="og:description" content="Learn how to install and use the Singlish to Sinhala converter Chrome extension.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/assets/images/singlish-sinhala-converter-preview.png">
+    <meta property="og:url" content="https://techlasiya.com/singlish-sinhala-converter">
+    <meta property="og:type" content="website">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    <!-- Bootstrap min css -->
+    <link rel="stylesheet" href="assets/css/vendor/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/plugins/swiper.css">
+    <link rel="stylesheet" href="assets/css/plugins/odometer.css">
+    <link rel="stylesheet" href="assets/css/vendor/animate.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .extension-features {
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4e6bff;
+        }
+        .step-by-step {
+            counter-reset: step-counter;
+            margin: 40px 0;
+        }
+        .step {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 30px;
+        }
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: #4e6bff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .screenshot {
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .screenshot img {
+            width: 100%;
+            height: auto;
+        }
+        .usage-examples {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .example-table th, .example-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .example-table th {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .download-btn {
+            display: inline-block;
+            background: #4e6bff;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            background: #3a56e8;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body class="tmp-white-version">
+
+    <!-- Header Area (keep your existing header) -->
+    <header class="tmp-header-area-start header-one header--sticky header--transparent">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="header-content">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img class="logo-dark" src="assets/images/logo/logo-white.png" alt="Elevating your brand with creative, customized, and conversion-focused
+                                digital solutions.">
+                                <img class="logo-white" src="assets/images/logo/logo-white.png" alt="Elevating your brand with creative, customized, and conversion-focused
+                                digital solutions.">
+                            </a>
+                        </div>
+                        <nav class="tmp-mainmenu-nav d-none d-xl-block">
+                            <ul class="tmp-mainmenu">
+                                <li>
+                                    <a href="index.html">Home
+                                    </a>
+                                    <!-- <ul class="submenu">
+            <li><a href="index.html">Home 01</a></li>
+            <li><a href="index-02-white.html">Home 02</a></li>
+            <li><a href="index-03-white.html">Home 03</a></li>
+            <li><a href="index-04-white.html">Home 04</a></li>
+            <li><a href="index-05-white.html">Home 05</a></li>
+            <li><a href="index-06-white.html">Home 06</a></li>
+            <li><a href="index-07-white.html">Home 07</a></li>
+            <li><a href="index-08-white.html">Home 08</a></li>
+            <li><a href="index-09-white.html">Home 09</a></li>
+            <li><a href="index-10-white.html">Home 10</a></li>
+            <li><a href="index-11-white.html">Home 11</a></li>
+            <li><a href="index-12-white.html">Home 12</a></li>
+            <li><a href="index-13-white.html">Home 13</a></li>
+        </ul> -->
+                                </li>
+                                <li>
+                                    <a href="https://about.techlasiya.com">About</a>
+                                </li>
+                                <li class="has-dropdown">
+                                    <a href="#">Services
+                                        <i class="fa-regular fa-chevron-down"></i>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li><a href="service-white.html">Service</a></li>
+                                     
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </nav>
+                        <div class="tmp-header-right">
+                            <div class="social-share-wrapper d-none d-md-block">
+                                <div class="social-link">
+                                    <a href="https://wa.me/94702102324"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a href="https://t.me/techlasiya"><i class="fa-brands fa-telegram"></i></a>
+                                    <a href="https://www.youtube.com/@Lasiya_Tech"><i class="fa-brands fa-youtube"></i></a>
+                                </div>
+                            </div>
+                            <div class="actions-area">
+                                <div class="tmp-side-collups-area d-none d-xl-block">
+                                    <button class="tmp-menu-bars tmp_button_active"><i class="fa-regular fa-bars-staggered"></i></button>
+                                </div>
+                                <div class="tmp-side-collups-area d-block d-xl-none">
+                                    <button class="tmp-menu-bars humberger_menu_active"><i class="fa-regular fa-bars-staggered"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <div class="project-details-area-wrapper tmp-section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="project-details-thumnail-wrap">
+                        <img src="assets/images/about/10.png" alt="Singlish to Sinhala Converter Banner">
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="project-details-content-wrap">
+                        <h2 class="title">Singlish to Sinhala Converter Chrome Extension</h2>
+                        <p class="docs">Convert English phonetic typing (Singlish) to Sinhala script instantly with our easy-to-use Chrome extension. Perfect for anyone who wants to type in Sinhala without learning a complex keyboard layout.</p>
+                        
+                        <a href="https://github.com/nxt-owner/Singlish-Website/releases/download/V1.0/Extention.zip" class="download-btn">
+                            <i class="fa-solid fa-download"></i> Download Extension
+                        </a>
+                        
+                        <div class="extension-features">
+                            <h2 class="mini-title">Key Features</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-keyboard"></i>
+                                        <h4>Easy Phonetic Typing</h4>
+                                        <p>Type Sinhala words using English letters that sound similar (e.g., "ayubowan" becomes "ආයුබෝවන්").</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-globe"></i>
+                                        <h4>Works Anywhere</h4>
+                                        <p>Use it on any website - Facebook, WhatsApp Web, Gmail, and more.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-bolt"></i>
+                                        <h4>Instant Conversion</h4>
+                                        <p>See your Singlish text convert to Sinhala as you type with no delay.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-toggle-on"></i>
+                                        <h4>Toggle On/Off</h4>
+                                        <p>Easily enable or disable the conversion with a simple click.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h2 class="mini-title">Installation Guide</h2>
+                        <div class="step-by-step">
+                            <div class="step">
+                                <h4>Download the Extension</h4>
+                                <p>Click the download button above to get the .crx file or .zip file of the extension.</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Unzip The Downloaded File</h4>
+                                <p>Unzip your downloaded zip and save it in a location you wants</p>
+                                
+                            </div>
+                            <div class="step">
+                                <h4>Open Chrome Extensions</h4>
+                                <p>In your Chrome browser, go to <code>chrome://extensions</code> in the address bar.</p>
+                                <div class="screenshot">
+                                    <img src="assets/images/about/chome -extension-page.png" alt="Chrome Extensions Page">
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Enable Developer Mode</h4>
+                                <p>Toggle the "Developer mode" switch in the top right corner to ON.</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Load the Extension</h4>
+                                <p>Click "Load unpacked" and select the extension folder you downloaded, or drag and drop the .crx file into the extensions page.</p>
+                                <div class="screenshot">
+                                    <img src="assets/images/about/leading.png" alt="Loading Extension">
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Pin the Extension</h4>
+                                <p>Click the puzzle icon in Chrome's toolbar and pin the "Singlish to Sinhala" extension for easy access.</p>
+                            </div>
+                        </div>
+                        
+                        <h2 class="mini-title">How to Use</h2>
+                        <div class="step-by-step">
+                            <div class="step">
+                                <h4>Activate the Extension</h4>
+                                <p>Click the extension icon in your toolbar to activate it (the icon will turn blue when active).</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Start Typing</h4>
+                                <p>Go to any text field on any website and start typing in Singlish (English letters that sound like Sinhala words).</p>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>See Instant Conversion</h4>
+                                <p>Your text will automatically convert to Sinhala script as you type.</p>
+                                <div class="screenshot">
+                                    <img src="assets/images/about/conversion-example.png" alt="Conversion Example">
+                                </div>
+                            </div>
+                            
+                            <div class="step">
+                                <h4>Toggle as Needed</h4>
+                                <p>Click the extension icon again to toggle the conversion off when you need to type in English.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="usage-examples">
+                            <h2 class="mini-title">Common Singlish to Sinhala Examples</h2>
+                            <table class="example-table">
+                                <thead>
+                                    <tr>
+                                        <th>Singlish (Phonetic)</th>
+                                        <th>Sinhala Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ayubowan</td>
+                                        <td>ආයුබෝවන්</td>
+                                    </tr>
+                                    <tr>
+                                        <td>kohomada</td>
+                                        <td>කොහොමද</td>
+                                    </tr>
+                                    <tr>
+                                        <td>isthuthi</td>
+                                        <td>ඉස්තුති</td>
+                                    </tr>
+                                    <tr>
+                                        <td>mata hari honda</td>
+                                        <td>මට හරි හොඳ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>oba kohomada</td>
+                                        <td>ඔබ කොහොමද</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h2 class="mini-title">Troubleshooting</h2>
+                        <div class="check-box-wrap">
+                            <ul>
+                                <li>
+                                    <h4 class="check-box-item"><span><i class="fa-solid fa-circle-check"></i></span>Extension not working?</h4>
+                                    <p>Try refreshing the page or restarting Chrome. Make sure the extension is enabled in your extensions list.</p>
+                                </li>
+                                <li>
+                                    <h4 class="check-box-item"><span><i class="fa-solid fa-circle-check"></i></span>Conversion not accurate?</h4>
+                                    <p>Some words may have multiple Sinhala equivalents. Try alternative phonetic spellings.</p>
+                                </li>
+                                <li>
+                                    <h4 class="check-box-item"><span><i class="fa-solid fa-circle-check"></i></span>Not working on a specific site?</h4>
+                                    <p>Some websites have complex text fields that may not work with the extension. Try a different browser or site.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="signle-side-bar project-details-area tmponhover">
+                        <div class="header">
+                            <h3 class="title">Extension Details</h3>
+                        </div>
+                        <div class="body">
+                            <div class="project-details-info">Version: <span>1.0.0</span></div>
+                            <div class="project-details-info">Browser: <span>Chrome</span></div>
+                            <div class="project-details-info">Last Updated: <span>June 2023</span></div>
+                            <div class="project-details-info">File Size: <span>2.4 MB</span></div>
+                            <div class="project-details-info">Developer: <span>Tech Lasiya</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="signle-side-bar project-details-area tmponhover mt-4">
+                        <div class="header">
+                            <h3 class="title">Need Help?</h3>
+                        </div>
+                        <div class="body">
+                            <p>If you're having trouble with the extension, please contact us:</p>
+                            <div class="project-details-info">Email: <span><a href="mailto:support@techlasiya.com">support@techlasiya.com</a></span></div>
+                            <div class="project-details-info">WhatsApp: <span><a href="https://wa.me/94702102324">+94 70 2102324</a></span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="signle-side-bar project-details-area tmponhover mt-4">
+                        <div class="header">
+                            <h3 class="title">Share This Tool</h3>
+                        </div>
+                        <div class="body">
+                            <div class="social-link">
+                                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Area (keep your existing footer) -->
+    <footer class="footer-area footer-style-one-wrapper tmp-section-gap">
+        <!-- Your existing footer content -->
+    </footer>
+
+    <!-- Scripts (keep your existing scripts) -->
+    <script src="assets/js/vendor/jquery.js"></script>
+    <!-- Your other script includes -->
+</body>
+<!-- Start Footer Area  -->
+<footer class="footer-area footer-style-one-wrapper  tmp-section-gap">
+    <div class="container">
+        <div class="footer-main footer-style-one">
+            <div class="row g-5">
+                <div class="col-lg-5 col-md-6">
+                    <div class="single-footer-wrapper border-right mr--20">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="assets/images/logo/logo-white.png" alt="Elevating your brand with creative, customized, and conversion-focused
+                                digital solutions.">
+                            </a>
+                        </div>
+                        <p class="description"><span>Get Ready</span> To <br> Create Great</p>
+                        <form action="#" class="newsletter-form-1 mt--40">
+                            <input type="email" placeholder="Email Adress">
+                            <span class="form-icon"><i class="fa-regular fa-envelope"></i></span>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-footer-wrapper quick-link-wrap">
+                        <h5 class="ft-title">Quick Link</h5>
+                        <ul class="ft-link tmp-link-animation">
+                            <li>
+                                <a href="https://about.techlasiya.com">About Me</a>
+                            </li>
+                            <li>
+                                <a href="#">Service</a>
+                            </li>
+                    
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-footer-wrapper contact-wrap">
+                        <h5 class="ft-title">Contact </h5>
+                        <ul class="ft-link tmp-link-animation">
+                            <li><span class="ft-icon"><i class="fa-solid fa-envelope"></i></span><a href="#">lasindurodrogo@gmail.com</a></li>
+                            <li><span class="ft-icon"><i class="fa-solid fa-location-dot"></i></span>Kalutara, Sri Lanka</li>
+                            <li><span class="ft-icon"><i class="fa-solid fa-phone"></i></span><a href="#">+94 70 2102324</a></li>
+                        </ul>
+                        <div class="social-link footer">
+                            <a href="https://wa.me/94702102324"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://t.me/techlasiya"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="https://www.youtube.com/@Lasiya_Tech"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bg-img">
+        <img src="assets/images/footer/footer-bg-img.png" alt="footer-img">
+    </div>
+</footer>
+<div class="copyright-area-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-wrapper">
+                    <p class="copy-right-para">© Rukshan <script>
+                            document.write(new Date().getFullYear())
+                        </script> | All Rights Reserved</p>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Footer Area  -->
+</html>
