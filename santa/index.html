@@ -8,7 +8,6 @@
   <meta property="og:title" content="Merry Christmas & Happy New Year" />
   <meta property="og:description" content="A festive greeting made just for you" />
   <meta property="og:type" content="website" />
-  <link rel="preload" href="https://i.imgur.com/gnynvnM.jpeg" as="image">
 
   <style>
     * { box-sizing: border-box; }
@@ -39,7 +38,6 @@
       width: 95%;
       max-width: 960px;
       aspect-ratio: 16 / 9;
-      background-image: url("https://i.imgur.com/gnynvnM.jpeg");
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 18px;
@@ -49,6 +47,7 @@
       justify-content: flex-end;
       padding: 60px 40px;
       color: #4c7f80;
+      transition: opacity 0.8s ease-in-out; /* smooth fade-in */
     }
 
     /* Sleigh motion illusion */
@@ -230,7 +229,7 @@ padding-top: 50%;
 </div>
 
 
-<div class="card">
+<div class="card" style="opacity:0;">
   <h1 class="title">MERRY CHRISTMAS</h1>
   <div class="subtitle">& HAPPY NEW YEAR</div>
 
@@ -311,6 +310,23 @@ sendBtn.onclick = () => {
   modal.style.display = "none";
 };
 
+ const card = document.querySelector('.card');
+
+  // Create a new image object
+  const bg = new Image();
+  bg.src = 'https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/santa/santa.webp'; // same as your background
+
+  // Once image is loaded, fade in the card
+  bg.onload = () => {
+    card.style.opacity = 1;
+  };
+
+  // Optionally, set the background explicitly (helps in some browsers)
+  bg.onload = () => {
+    card.style.backgroundImage = `url(${bg.src})`;
+    card.style.opacity = 1;
+  };
+
 const musicToggle = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
 
@@ -323,7 +339,6 @@ musicToggle.onclick = () => {
     musicToggle.textContent = '🔇 Music Off';
   }
 };
-
 
   // ❄️ Canvas snow
   const canvas = document.getElementById("snow");
