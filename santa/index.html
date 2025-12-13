@@ -1,523 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Merry Christmas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Merry Christmas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Preconnect for faster image loading -->
-  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+    <!-- Preconnect for faster image loading -->
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
 
-  <meta property="og:title" content="Merry Christmas & Happy New Year" />
-  <meta property="og:description" content="A festive greeting made just for you" />
+      <!-- Open Graph Meta Tags for Social Sharing -->
+  <meta property="og:title" content="Merry Christmas & Happy New Year 🎄" />
+  <meta property="og:description" content="A personalized Christmas greeting card made with love. Share your own festive message!" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://techlasiya.com/santa" />
+  
+  <!-- OG Image - Replace with your actual image URL -->
+  <meta property="og:image" content="https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/santa/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content="Merry Christmas and Happy New Year greeting card with festive design" />
 
-  <style>
-    * { box-sizing: border-box; }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #1a1f71; /* deeper twilight blue */
-      font-family: Georgia, serif;
-      overflow: hidden;
-    }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1f71;
+            /* deeper twilight blue */
+            font-family: Georgia, serif;
+            overflow: hidden;
+        }
 
-    /* Snow canvas */
-    canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
+        /* Snow canvas */
+        canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    /* Card */
-    .card {
-      position: relative;
-      z-index: 2;
-      width: 95%;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
-      background-color: #1a1f71; /* Fallback color */
-      background-image: linear-gradient(135deg, #1a1f71 0%, #0c1142 100%);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border-radius: 18px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 60px 40px;
-      color: #4c7f80;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out, background-image 0.5s ease;
-      filter: blur(0);
-    }
+        /* Card */
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 95%;
+            max-width: 960px;
+            aspect-ratio: 16 / 9;
+            background-color: #1a1f71;
+            /* Fallback color */
+            background-image: linear-gradient(135deg, #1a1f71 0%, #0c1142 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 18px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 60px 40px;
+            color: #4c7f80;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, background-image 0.5s ease;
+            filter: blur(0);
+        }
 
-    /* Loading animation */
-    .card.loading::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 40px;
-      height: 40px;
-      margin: -20px 0 0 -20px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #33bd78;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      z-index: 3;
-    }
+        /* Loading animation */
+        .card.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #33bd78;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 3;
+        }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-    .card.loaded {
-      filter: blur(0);
-    }
+        .card.loaded {
+            filter: blur(0);
+        }
 
-    /* Sleigh motion illusion */
-    @keyframes sleighMove {
-      0%   { background-position: 0% center; }
-      50%  { background-position: 100% center; }
-      100% { background-position: 0% center; }
-    }
+        /* Sleigh motion illusion */
+        @keyframes sleighMove {
+            0% {
+                background-position: 0% center;
+            }
 
-    .title {
-      padding-top: 30%;
-      text-align: center;
-      letter-spacing: 0.35em;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      margin: 0;
-      color: #18ad04; /* warm gold */
-    }   
+            50% {
+                background-position: 100% center;
+            }
 
-    .subtitle {
-      text-align: center;
-      letter-spacing: 0.4em;
-      font-size: 0.9rem;
-      color: #2c9e9c;
-      margin-top: 8px;
-    }
+            100% {
+                background-position: 0% center;
+            }
+        }
 
-    .message {
-      margin-top: 40px;
-      text-align: center;
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      padding: 0 20px;
-    }
+        .title {
+            padding-top: 30%;
+            text-align: center;
+            letter-spacing: 0.35em;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin: 0;
+            color: #18ad04;
+            /* warm gold */
+        }
 
-    .footer {
-      margin-top: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+        .subtitle {
+            text-align: center;
+            letter-spacing: 0.4em;
+            font-size: 0.9rem;
+            color: #2c9e9c;
+            margin-top: 8px;
+        }
 
-    .from {
-      font-style: italic;
-      font-size: 1.1rem;
-    }
+        .message {
+            margin-top: 40px;
+            text-align: center;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            padding: 0 20px;
+        }
 
-    .share {
-      border: none;
-      background: #33bd7869;
-      color: #004646;
-      padding: 10px 18px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      backdrop-filter: blur(6px);
-    }
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-    .share:active {
-      transform: scale(0.96);
-    }
+        .from {
+            font-style: italic;
+            font-size: 1.1rem;
+        }
 
-    /* Modal */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
+        .share {
+            border: none;
+            background: #33bd7869;
+            color: #004646;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            backdrop-filter: blur(6px);
+        }
 
-    .modal-content {
-      background: #ffffff;
-      width: 90%;
-      max-width: 360px;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      color: #333;
-    }
+        .share:active {
+            transform: scale(0.96);
+        }
 
-    .modal-content h3 {
-      margin-top: 0;
-      color: #0b2a81;
-    }
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
 
-    .modal-content input,
-    .modal-content textarea {
-      width: 100%;
-      padding: 10px 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
+        .modal-content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 360px;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
 
-    .modal-actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
+        .modal-content h3 {
+            margin-top: 0;
+            color: #0b2a81;
+        }
 
-    .modal-actions button {
-      flex: 1;
-      border: none;
-      padding: 10px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 14px;
-    }
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
 
-    #cancelShare {
-      background: #eee;
-    }
+        .modal-actions {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-    #sendShare {
-      background: #25d366;
-      color: white;
-    }
+        .modal-actions button {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-    /* Music Toggle */
-    #musicToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 5;
-      background: #33bd7869;
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 14px;
-      backdrop-filter: blur(6px);
-      border: none;
-    }
+        #cancelShare {
+            background: #eee;
+        }
 
-    /* Made with love link */
-    .footer-link {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      font-size: 14px;
-      color: #fff;
-      text-align: center;
-    }
+        #sendShare {
+            background: #25d366;
+            color: white;
+        }
 
-    .footer-link a {
-      color: #33bd78;
-      text-decoration: none;
-    }
+        /* Music Toggle */
+        #musicToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 5;
+            background: #33bd7869;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            backdrop-filter: blur(6px);
+            border: none;
+        }
 
-    /* Mobile */
-    @media (max-width: 600px) {
-      .card {
-        padding: 100px 20px;
-        animation: sleighMove 20s linear infinite;
-      }
+        /* Made with love link */
+        .footer-link {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+        }
 
-      .footer {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .title {
-        padding-top: 50%;
-      }
-      
-      #musicToggle {
-        top: 10px;
-        right: 10px;
-        padding: 8px 14px;
-        font-size: 12px;
-      }
-    }
-  </style>
+        .footer-link a {
+            color: #33bd78;
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .card {
+                padding: 100px 20px;
+                animation: sleighMove 20s linear infinite;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .title {
+                padding-top: 50%;
+            }
+
+            #musicToggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- Hidden preloader -->
-  <div id="imagePreloader" style="display:none;">
-    <img src="https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp" alt="preload" crossorigin="anonymous">
-  </div>
-
-  <canvas id="snow"></canvas>
-
-  <!-- Top-right Music Toggle button -->
-  <button id="musicToggle">🔊 Music On</button>
-
-  <!-- Background music -->
-  <audio id="bgMusic" src="carol-of-the-bells_short-1-263249.mp3" loop preload="auto"></audio>
-
-  <!-- Bottom-center site link -->
-  <div class="footer-link">
-    Made with ❤️ by <a href="https://techlasiya.com" target="_blank">Tech Lasya</a>
-  </div>
-
-  <div class="card" id="christmasCard">
-    <h1 class="title">MERRY CHRISTMAS</h1>
-    <div class="subtitle">& HAPPY NEW YEAR</div>
-
-    <div class="message" id="message"></div>
-
-    <div class="footer">
-      <div class="from">— <span id="fromName"></span></div>
-      <button class="share" id="shareBtn">🔗 Create New</button>
+    <!-- Hidden preloader -->
+    <div id="imagePreloader" style="display:none;">
+        <img src="https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp" alt="preload"
+            crossorigin="anonymous">
     </div>
-  </div>
 
-  <!-- Share Modal -->
-  <div id="shareModal" class="modal">
-    <div class="modal-content">
-      <h3>Share this card 🎄</h3>
+    <canvas id="snow"></canvas>
 
-      <input
-        type="text"
-        id="shareName"
-        placeholder="Your name"
-      />
+    <!-- Top-right Music Toggle button -->
+    <button id="musicToggle">🔊 Music On</button>
 
-      <textarea
-        id="shareMessage"
-        placeholder="Your message"
-        rows="3"
-      ></textarea>
+    <!-- Background music -->
+    <audio id="bgMusic" src="carol-of-the-bells_short-1-263249.mp3" loop preload="auto"></audio>
 
-      <div class="modal-actions">
-        <button id="cancelShare">Cancel</button>
-        <button id="sendShare">Send via WhatsApp</button>
-      </div>
+    <!-- Bottom-center site link -->
+    <div class="footer-link">
+        Made with ❤️ by <a href="https://techlasiya.com" target="_blank">Tech Lasya</a>
     </div>
-  </div>
 
-  <script>
-    // 🎁 URL parameters
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get("name") || "Santa";
-    const msg =
-      params.get("msg") ||
-      "May your season be calm, bright, and full of quiet joy.";
+    <div class="card" id="christmasCard">
+        <h1 class="title">MERRY CHRISTMAS</h1>
+        <div class="subtitle">& HAPPY NEW YEAR</div>
 
-    document.getElementById("fromName").textContent = decodeURIComponent(name);
-    document.getElementById("message").textContent = decodeURIComponent(msg);
+        <div class="message" id="message"></div>
 
-    // Get DOM elements
-    const card = document.getElementById('christmasCard');
-    const modal = document.getElementById("shareModal");
-    const shareBtn = document.getElementById("shareBtn");
-    const cancelBtn = document.getElementById("cancelShare");
-    const sendBtn = document.getElementById("sendShare");
-    const musicToggle = document.getElementById('musicToggle');
-    const bgMusic = document.getElementById('bgMusic');
+        <div class="footer">
+            <div class="from">— <span id="fromName"></span></div>
+            <button class="share" id="shareBtn">🔗 Create New</button>
+        </div>
+    </div>
 
-    // ===== OPTIMIZED BACKGROUND IMAGE LOADING =====
-    function loadBackgroundImage() {
-      // Show card immediately with gradient fallback
-      setTimeout(() => {
-        card.style.opacity = 1;
-        card.classList.remove('loading');
-      }, 100);
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <h3>Share this card 🎄</h3>
 
-      // Load actual image in background
-      const imageUrl = 'https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp';
-      
-      // Create image with optimization flags
-      const bgImage = new Image();
-      bgImage.loading = 'eager';
-      bgImage.decoding = 'async';
-      bgImage.crossOrigin = 'anonymous';
-      
-      // Optional: Use a smaller image for mobile
-      // if (window.innerWidth <= 600) {
-      //   imageUrl = imageUrl.replace('.webp', '-mobile.webp');
-      // }
-      
-      bgImage.src = imageUrl;
-      
-      // Add loading class for visual indicator
-      card.classList.add('loading');
-      
-      bgImage.onload = () => {
-        // Apply the actual image
-        card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
-        card.classList.remove('loading');
-        card.classList.add('loaded');
-        
-        // Optional: Trigger a small animation when image loads
-        setTimeout(() => {
-          card.style.transition = 'opacity 0.8s ease, background-image 0.3s ease';
-        }, 50);
-      };
-      
-      bgImage.onerror = () => {
-        // If image fails, keep gradient background
-        console.log('Background image failed to load, using gradient fallback');
-        card.classList.remove('loading');
-        card.classList.add('loaded');
-      };
-      
-      // Fallback timeout in case image takes too long
-      setTimeout(() => {
-        if (card.classList.contains('loading')) {
-          card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
-          card.classList.remove('loading');
-          card.classList.add('loaded');
+            <input type="text" id="shareName" placeholder="Your name" />
+
+            <textarea id="shareMessage" placeholder="Your message" rows="3"></textarea>
+
+            <div class="modal-actions">
+                <button id="cancelShare">Cancel</button>
+                <button id="sendShare">Send via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎁 URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name") || "Santa";
+        const msg =
+            params.get("msg") ||
+            "May your season be calm, bright, and full of quiet joy.";
+
+        document.getElementById("fromName").textContent = decodeURIComponent(name);
+        document.getElementById("message").textContent = decodeURIComponent(msg);
+
+        // Get DOM elements
+        const card = document.getElementById('christmasCard');
+        const modal = document.getElementById("shareModal");
+        const shareBtn = document.getElementById("shareBtn");
+        const cancelBtn = document.getElementById("cancelShare");
+        const sendBtn = document.getElementById("sendShare");
+        const musicToggle = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // ===== OPTIMIZED BACKGROUND IMAGE LOADING =====
+        function loadBackgroundImage() {
+            // Show card immediately with gradient fallback
+            setTimeout(() => {
+                card.style.opacity = 1;
+                card.classList.remove('loading');
+            }, 100);
+
+            // Load actual image in background
+            const imageUrl = 'https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp';
+
+            // Create image with optimization flags
+            const bgImage = new Image();
+            bgImage.loading = 'eager';
+            bgImage.decoding = 'async';
+            bgImage.crossOrigin = 'anonymous';
+
+            // Optional: Use a smaller image for mobile
+            // if (window.innerWidth <= 600) {
+            //   imageUrl = imageUrl.replace('.webp', '-mobile.webp');
+            // }
+
+            bgImage.src = imageUrl;
+
+            // Add loading class for visual indicator
+            card.classList.add('loading');
+
+            bgImage.onload = () => {
+                // Apply the actual image
+                card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
+                card.classList.remove('loading');
+                card.classList.add('loaded');
+
+                // Optional: Trigger a small animation when image loads
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.8s ease, background-image 0.3s ease';
+                }, 50);
+            };
+
+            bgImage.onerror = () => {
+                // If image fails, keep gradient background
+                console.log('Background image failed to load, using gradient fallback');
+                card.classList.remove('loading');
+                card.classList.add('loaded');
+            };
+
+            // Fallback timeout in case image takes too long
+            setTimeout(() => {
+                if (card.classList.contains('loading')) {
+                    card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
+                    card.classList.remove('loading');
+                    card.classList.add('loaded');
+                }
+            }, 2000);
         }
-      }, 2000);
-    }
 
-    // Start loading the background image
-    loadBackgroundImage();
+        // Start loading the background image
+        loadBackgroundImage();
 
-    // ===== SHARE FUNCTIONALITY =====
-    shareBtn.onclick = () => {
-      modal.style.display = "flex";
-    };
+        // ===== SHARE FUNCTIONALITY =====
+        shareBtn.onclick = () => {
+            modal.style.display = "flex";
+        };
 
-    cancelBtn.onclick = () => {
-      modal.style.display = "none";
-    };
+        cancelBtn.onclick = () => {
+            modal.style.display = "none";
+        };
 
-    sendBtn.onclick = () => {
-      const name = document.getElementById("shareName").value || "Santa";
-      const message =
-        document.getElementById("shareMessage").value ||
-        "Wishing you a Merry Christmas and a Happy New Year!";
+        sendBtn.onclick = () => {
+            const name = document.getElementById("shareName").value || "Santa";
+            const message =
+                document.getElementById("shareMessage").value ||
+                "Wishing you a Merry Christmas and a Happy New Year!";
 
-      const baseUrl = window.location.origin + window.location.pathname;
-      const shareUrl =
-        `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(message)}`;
+            const baseUrl = window.location.origin + window.location.pathname;
+            const shareUrl =
+                `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(message)}`;
 
-      const whatsappText =
-        `🎄 Merry Christmas!\n\nOpen your card:\n${shareUrl}`;
+            const whatsappText =
+                `🎄 Merry Christmas!\n\nOpen your card:\n${shareUrl}`;
 
-      const whatsappUrl =
-        `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
+            const whatsappUrl =
+                `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
 
-      window.open(whatsappUrl, "_blank");
-      modal.style.display = "none";
-    };
+            window.open(whatsappUrl, "_blank");
+            modal.style.display = "none";
+        };
 
-    // ===== MUSIC TOGGLE =====
-    // Auto-play music with user interaction
-    let musicPlayed = false;
-    
-    function initMusic() {
-      // Try to play music on first user interaction
-      document.addEventListener('click', function initMusicOnce() {
-        if (!musicPlayed && bgMusic.paused) {
-          bgMusic.play().then(() => {
-            musicPlayed = true;
-          }).catch(e => {
-            console.log("Autoplay prevented:", e);
-          });
+        // ===== MUSIC TOGGLE =====
+        // Auto-play music with user interaction
+        let musicPlayed = false;
+
+        function initMusic() {
+            // Try to play music on first user interaction
+            document.addEventListener('click', function initMusicOnce() {
+                if (!musicPlayed && bgMusic.paused) {
+                    bgMusic.play().then(() => {
+                        musicPlayed = true;
+                    }).catch(e => {
+                        console.log("Autoplay prevented:", e);
+                    });
+                }
+                document.removeEventListener('click', initMusicOnce);
+            }, { once: true });
         }
-        document.removeEventListener('click', initMusicOnce);
-      }, { once: true });
-    }
-    
-    musicToggle.onclick = () => {
-      if (bgMusic.paused) {
-        bgMusic.play().then(() => {
-          musicToggle.textContent = '🔊 Music On';
-        }).catch(e => {
-          console.log("Play failed:", e);
+
+        musicToggle.onclick = () => {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    musicToggle.textContent = '🔊 Music On';
+                }).catch(e => {
+                    console.log("Play failed:", e);
+                });
+            } else {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇 Music Off';
+            }
+        };
+
+        // Initialize music on load
+        window.addEventListener('DOMContentLoaded', initMusic);
+
+        // ===== SNOW ANIMATION =====
+        const canvas = document.getElementById("snow");
+        const ctx = canvas.getContext("2d");
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        const flakes = Array.from({ length: 130 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 2 + 0.5,
+            s: Math.random() * 0.6 + 0.3
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255,255,255,0.75)";
+            ctx.beginPath();
+
+            flakes.forEach(f => {
+                ctx.moveTo(f.x, f.y);
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                f.y += f.s;
+                if (f.y > canvas.height) {
+                    f.y = -5;
+                    f.x = Math.random() * canvas.width;
+                }
+            });
+
+            ctx.fill();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // ===== PERFORMANCE OPTIMIZATION =====
+        // Reduce animations when page is not visible
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                // Pause music when tab is not visible
+                if (!bgMusic.paused) {
+                    bgMusic.pause();
+                    musicToggle.textContent = '🔇 Music Off (Tab Hidden)';
+                }
+            }
         });
-      } else {
-        bgMusic.pause();
-        musicToggle.textContent = '🔇 Music Off';
-      }
-    };
-    
-    // Initialize music on load
-    window.addEventListener('DOMContentLoaded', initMusic);
 
-    // ===== SNOW ANIMATION =====
-    const canvas = document.getElementById("snow");
-    const ctx = canvas.getContext("2d");
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
-
-    const flakes = Array.from({ length: 130 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 2 + 0.5,
-      s: Math.random() * 0.6 + 0.3
-    }));
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255,255,255,0.75)";
-      ctx.beginPath();
-
-      flakes.forEach(f => {
-        ctx.moveTo(f.x, f.y);
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        f.y += f.s;
-        if (f.y > canvas.height) {
-          f.y = -5;
-          f.x = Math.random() * canvas.width;
-        }
-      });
-
-      ctx.fill();
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-    
-    // ===== PERFORMANCE OPTIMIZATION =====
-    // Reduce animations when page is not visible
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        // Pause music when tab is not visible
-        if (!bgMusic.paused) {
-          bgMusic.pause();
-          musicToggle.textContent = '🔇 Music Off (Tab Hidden)';
-        }
-      }
-    });
-    
-    // Preload for faster sharing
-    window.addEventListener('load', function() {
-      // Preload WhatsApp sharing assets
-      const whatsappIcon = new Image();
-      whatsappIcon.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIuMDMgMTIuMDNsMS4xMyAxLjEzYy4xOC4xOC4zOS4zMi42MS40My43OC40NSAxLjY4LjY3IDIuNTguNjcgMS40NCAwIDIuODgtLjU2IDMuOTYtMS41NiAxLjA4LTEgMS42NC0yLjUyIDEuNjQtMy45NiAwLTEuNDQtLjU2LTIuODgtMS42NC0zLjk2UzE1LjQ0IDQgMTQgNGE0Ljk1IDQuOTUgMCAwMC0zLjk2IDEuNjRjLS4yMS4yMS0uNC40NC0uNTYuNjhMOC40NCA4LjQ0bDEuMTMgMS4xMy0uNzIgMi4xNmwyLjE2LS43ek0xNCAyYzEuOTggMCAzLjk0Ljc3IDUuNCAyLjE4IDEuNDYgMS40MSAyLjIyIDMuMzcgMi4yMiA1LjQyczAtMy45NS0yLjIyLTUuNEMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnMtMy45NC43Ny01LjQgMi4xOEM3LjE0IDUuNTkgNi4zOCA3LjU1IDYuMzggOS41N3MuNzYgMy45NSAyLjIyIDUuMzljMS40NiAxLjQxIDMuNDIgMi4xOCA1LjQgMi4xOCAxLjQyIDAgMi44LS40MiAzLjk2LTEuMjQuMzktLjI0Ljc0LS41MyAxLjA1LS44Ny4zMS4xOC42NS4zMSAxIC4zMSAxLjEgMCAyLS45IDItMiAwLS41NS0uMjItMS4wNS0uNTgtMS40MS41Ni0uNTguOTktMS4yMyAxLjI2LTEuOTMuNTctMS40NC44Ni0yLjk2Ljg2LTQuNTcgMC0xLjk4LS43Ny0zLjk0LTIuMjItNS4zNUMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnoiLz48L3N2Zz4=';
-    });
-  </script>
+        // Preload for faster sharing
+        window.addEventListener('load', function () {
+            // Preload WhatsApp sharing assets
+            const whatsappIcon = new Image();
+            whatsappIcon.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIuMDMgMTIuMDNsMS4xMyAxLjEzYy4xOC4xOC4zOS4zMi42MS40My43OC40NSAxLjY4LjY3IDIuNTguNjcgMS40NCAwIDIuODgtLjU2IDMuOTYtMS41NiAxLjA4LTEgMS42NC0yLjUyIDEuNjQtMy45NiAwLTEuNDQtLjU2LTIuODgtMS42NC0zLjk2UzE1LjQ0IDQgMTQgNGE0Ljk1IDQuOTUgMCAwMC0zLjk2IDEuNjRjLS4yMS4yMS0uNC40NC0uNTYuNjhMOC40NCA4LjQ0bDEuMTMgMS4xMy0uNzIgMi4xNmwyLjE2LS43ek0xNCAyYzEuOTggMCAzLjk0Ljc3IDUuNCAyLjE4IDEuNDYgMS40MSAyLjIyIDMuMzcgMi4yMiA1LjQyczAtMy45NS0yLjIyLTUuNEMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnMtMy45NC43Ny01LjQgMi4xOEM3LjE0IDUuNTkgNi4zOCA3LjU1IDYuMzggOS41N3MuNzYgMy45NSAyLjIyIDUuMzljMS40NiAxLjQxIDMuNDIgMi4xOCA1LjQgMi4xOCAxLjQyIDAgMi44LS40MiAzLjk2LTEuMjQuMzktLjI0Ljc0LS41MyAxLjA1LS44Ny4zMS4xOC42NS4zMSAxIC4zMSAxLjEgMCAyLS45IDItMiAwLS41NS0uMjItMS4wNS0uNTgtMS40MS41Ni0uNTguOTktMS4yMyAxLjI2LTEuOTMuNTctMS40NC44Ni0yLjk2Ljg2LTQuNTcgMC0xLjk4LS43Ny0zLjk0LTIuMjItNS4zNUMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnoiLz48L3N2Zz4=';
+        });
+    </script>
 </body>
+
 </html>
