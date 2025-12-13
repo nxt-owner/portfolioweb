@@ -2,69 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Merry Christmas!</title>
+  <title>Merry Christmas 🎄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Social preview -->
   <meta property="og:title" content="Merry Christmas!" />
-  <meta property="og:description" content="A Christmas card just for you 🎄" />
+  <meta property="og:description" content="A Christmas card made just for you 🎁" />
   <meta property="og:type" content="website" />
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!-- Snowfall plugin -->
+  <!-- Snowfall -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/snowfall.jquery/1.7.0/snowfall.min.js"></script>
 
   <style>
-    html {
-      font-size: 16px;
-    }
-
     body {
-      background-color: rgba(75, 75, 76, 1);
-      font-size: 62.5%;
+      background-color: #4b4b4c;
       margin: 0;
-      padding: 0;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
     section {
-      background: url(https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/winter.jpg);
+      background: url(https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/winter.jpg)
+        center / cover no-repeat;
       width: 700px;
       height: 500px;
       color: white;
       position: relative;
-      margin: 60px auto;
+      border-radius: 12px;
       overflow: hidden;
-    }
-
-    #snowman {
-      width: 13%;
-      margin-bottom: -47%;
-      margin-left: 5%;
-      transform: rotateZ(5deg);
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     h1 {
       font-family: "Dancing Script OT", cursive;
-      font-size: 5em;
-      padding-top: 0.5em;
+      font-size: 4em;
       text-align: center;
+      margin-top: 20px;
     }
 
-    p {
-      font-size: 37px;
+    #snowman {
+      width: 80px;
       position: absolute;
-      bottom: 0;
-      right: 0;
-      margin-right: 10%;
-      margin-bottom: 5%;
+      bottom: 80px;
+      left: 30px;
+      transform: rotateZ(5deg);
+    }
+
+    #message {
+      text-align: center;
+      font-size: 1.6em;
+      margin-top: 20px;
+      padding: 0 20px;
+      font-family: "Dancing Script OT", cursive;
+    }
+
+    p.from {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-size: 1.8em;
       font-family: "vshandprinted", cursive;
     }
 
-    span {
-      font-family: "Dancing Script OT", cursive;
-      font-weight: bold;
-      font-size: 30px;
+    .music-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* 📱 Mobile responsive */
+    @media (max-width: 768px) {
+      section {
+        width: 95%;
+        height: auto;
+        min-height: 420px;
+      }
+
+      h1 {
+        font-size: 2.8em;
+      }
+
+      #snowman {
+        width: 60px;
+        bottom: 70px;
+      }
+
+      p.from {
+        font-size: 1.4em;
+      }
+
+      #message {
+        font-size: 1.3em;
+      }
     }
   </style>
 </head>
@@ -72,7 +115,11 @@
 <body>
 
 <section>
+  <button class="music-toggle">🔔 Music</button>
+
   <h1>Merry Christmas!</h1>
+
+  <div id="message"></div>
 
   <img
     src="https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/snowman.png"
@@ -80,25 +127,40 @@
     alt="Snowman"
   />
 
-  <p><span>From,</span> <span id="fromName"></span></p>
+  <p class="from">From, <span id="fromName"></span></p>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/12/06/audio_5c5b9c0d1c.mp3" type="audio/mpeg">
+  </audio>
 </section>
 
 <script>
   $(document).ready(function () {
-    // Extract name from URL
-    const path = window.location.pathname;
-    let name = path.split('/').pop();
 
-    if (!name) {
-      name = 'Santa';
+    // Parse URL after /santa/
+    const path = decodeURIComponent(window.location.pathname);
+    const params = path.split('/').pop();
+
+    let name = 'Santa';
+    let message = 'Wishing you joy, warmth, and a little Christmas magic ✨';
+
+    if (params.includes('name=')) {
+      const pairs = params.split('&');
+      pairs.forEach(p => {
+        if (p.startsWith('name=')) {
+          name = p.replace('name=', '');
+        }
+        if (p.startsWith('msg=')) {
+          message = p.replace('msg=', '');
+        }
+      });
     }
 
-    name = decodeURIComponent(name);
-    name = name.charAt(0).toUpperCase() + name.slice(1);
-
     $('#fromName').text(name);
+    $('#message').text(message);
 
-    // Snow effect
+    // Snow
     snowFall.snow($('section'), {
       minSize: 1,
       maxSize: 8,
@@ -109,12 +171,28 @@
     });
 
     // Animations
-    $('body, section, h1, p').hide();
+    $('section *').hide();
+    $('section').fadeIn(400, function () {
+      $('h1').fadeIn(800);
+      $('#message').delay(600).fadeIn(600);
+      $('.from').delay(1200).fadeIn(400);
+      $('#snowman').delay(1000).fadeIn(400);
+    });
 
-    $('body').delay(300).fadeIn();
-    $('section').delay(400).fadeIn();
-    $('h1').delay(500).fadeIn(1000);
-    $('p').delay(1500).fadeIn(250);
+    // Music toggle
+    const music = document.getElementById('bgMusic');
+    let playing = false;
+
+    $('.music-toggle').on('click', function () {
+      if (!playing) {
+        music.play();
+        $(this).text('🔕 Mute');
+      } else {
+        music.pause();
+        $(this).text('🔔 Music');
+      }
+      playing = !playing;
+    });
   });
 </script>
 
