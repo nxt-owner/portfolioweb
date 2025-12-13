@@ -2,181 +2,366 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Merry Christmas 🎄</title>
+  <title>Merry Christmas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Social preview -->
-  <meta property="og:title" content="Merry Christmas!" />
-  <meta property="og:description" content="A Christmas card made just for you 🎁" />
+  <meta property="og:title" content="Merry Christmas & Happy New Year" />
+  <meta property="og:description" content="A festive greeting made just for you" />
   <meta property="og:type" content="website" />
 
-  <!-- jQuery (required) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- Snowfall plugin -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/snowfall.jquery/1.7.0/snowfall.min.js"></script>
-
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      background-color: #4b4b4c;
       margin: 0;
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-    }
-
-    section {
-      background: url(https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/winter.jpg)
-        center / cover no-repeat;
-      width: 700px;
-      height: 500px;
-      color: white;
-      position: relative;
-      border-radius: 12px;
+     background: #1a1f71; /* deeper twilight blue */
+      font-family: Georgia, serif;
       overflow: hidden;
-      padding: 20px;
-      box-sizing: border-box;
     }
 
-    h1 {
-      font-family: cursive;
-      font-size: 4em;
-      text-align: center;
-      margin-top: 20px;
+    /* Snow canvas */
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    #message {
+    /* Card */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: 95%;
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      background-image: url("http://127.0.0.1:5500/santa/santa.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 18px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 60px 40px;
+      color: #4c7f80;
+    }
+
+    /* Sleigh motion illusion */
+    @keyframes sleighMove {
+      0%   { background-position: 0% center; }
+      50%  { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+
+    .title {
+        padding-top: 30%;
       text-align: center;
-      font-size: 1.6em;
-      margin-top: 20px;
+      letter-spacing: 0.35em;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      margin: 0;
+       color: #18ad04; /* warm gold */
+    }   
+
+    .subtitle {
+      text-align: center;
+      letter-spacing: 0.4em;
+      font-size: 0.9rem;
+      color: #2c9e9c;
+      margin-top: 8px;
+    }
+
+    .message {
+      margin-top: 40px;
+      text-align: center;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       padding: 0 20px;
     }
 
-    #snowman {
-      width: 80px;
-      position: absolute;
-      bottom: 80px;
-      left: 30px;
-      transform: rotate(5deg);
+    .footer {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .from {
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
-      font-size: 1.8em;
+      font-style: italic;
+      font-size: 1.1rem;
     }
 
-    .music-toggle {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
+    .share {
       border: none;
-      padding: 8px 12px;
-      border-radius: 20px;
+      background: #33bd7869;
+      color: #004646;
+      padding: 10px 18px;
+      border-radius: 25px;
       cursor: pointer;
       font-size: 14px;
+      font-weight: bold;
+      backdrop-filter: blur(6px);
     }
 
+    .share:active {
+      transform: scale(0.96);
+    }
+    /* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 360px;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #0b2a81;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.modal-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#cancelShare {
+  background: #eee;
+}
+
+#sendShare {
+  background: #25d366;
+  color: white;
+}
+
+
     /* Mobile */
-    @media (max-width: 768px) {
-      section {
-        width: 95%;
-        height: auto;
-        min-height: 420px;
+    @media (max-width: 600px) {
+      .card {
+        padding: 100px 20px;
+        animation: sleighMove 20s linear infinite;
       }
 
-      h1 {
-        font-size: 2.6em;
+      .footer {
+        flex-direction: column;
+        align-items: center;
       }
-
-      #message {
-        font-size: 1.3em;
-      }
-
-      .from {
-        font-size: 1.4em;
-      }
+      .title {
+padding-top: 50%;
+    }
     }
   </style>
 </head>
 
 <body>
 
-<section>
-  <button class="music-toggle">🔔 Music</button>
+<canvas id="snow"></canvas>
+<!-- Top-right Music Toggle button -->
+<div id="musicToggle" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 5;
+  background: #33bd7869;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  backdrop-filter: blur(6px);
+">
+  🔊 Music On
+</div>
 
-  <h1>Merry Christmas!</h1>
+<!-- Background music -->
+<audio id="bgMusic" src="carol-of-the-bells_short-1-263249.mp3" autoplay loop></audio>
 
-  <div id="message"></div>
 
-  <img
-    src="https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/snowman.png"
-    id="snowman"
-    alt="Snowman"
-  />
+<!-- Bottom-center site link -->
+<div style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+">
+  Made with ❤️ by <a href="https://techlasiya.com" target="_blank" style="color:#33bd78; text-decoration:none;">Tech Lasya</a>
+</div>
 
-  <div class="from">From, <span id="fromName"></span></div>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/12/06/audio_5c5b9c0d1c.mp3" type="audio/mpeg">
-  </audio>
-</section>
+<div class="card">
+  <h1 class="title">MERRY CHRISTMAS</h1>
+  <div class="subtitle">& HAPPY NEW YEAR</div>
+
+  <div class="message" id="message"></div>
+
+  <div class="footer">
+    <div class="from">— <span id="fromName"></span></div>
+    <button class="share" id="shareBtn">🔗 Create New</button>
+  </div>
+</div>
+<!-- Share Modal -->
+<div id="shareModal" class="modal">
+  <div class="modal-content">
+    <h3>Share this card 🎄</h3>
+
+    <input
+      type="text"
+      id="shareName"
+      placeholder="Your name"
+    />
+
+    <textarea
+      id="shareMessage"
+      placeholder="Your message"
+      rows="3"
+    ></textarea>
+
+    <div class="modal-actions">
+      <button id="cancelShare">Cancel</button>
+      <button id="sendShare">Send via WhatsApp</button>
+    </div>
+  </div>
+</div>
+
 
 <script>
-  $(document).ready(function () {
+  // 🎁 URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name") || "Santa";
+  const msg =
+    params.get("msg") ||
+    "May your season be calm, bright, and full of quiet joy.";
 
-    // ✅ GitHub Pages–safe query parsing
-    const params = new URLSearchParams(window.location.search);
+  document.getElementById("fromName").textContent = decodeURIComponent(name);
+  document.getElementById("message").textContent = decodeURIComponent(msg);
 
-    const name = params.get('name') || 'Santa';
-    const message =
-      params.get('msg') ||
-      'Wishing you joy, warmth, and a little Christmas magic ✨';
+  // 🔗 Share button
+const modal = document.getElementById("shareModal");
+const shareBtn = document.getElementById("shareBtn");
+const cancelBtn = document.getElementById("cancelShare");
+const sendBtn = document.getElementById("sendShare");
 
-    $('#fromName').text(decodeURIComponent(name));
-    $('#message').text(decodeURIComponent(message));
+shareBtn.onclick = () => {
+  modal.style.display = "flex";
+};
 
-    // ✅ Snowfall MUST be attached to body
-    $(document).snowfall({
-      minSize: 1,
-      maxSize: 8,
-      round: true,
-      minSpeed: 1,
-      maxSpeed: 2,
-      flakeCount: 120
-    });
+cancelBtn.onclick = () => {
+  modal.style.display = "none";
+};
 
-    // Animations
-    $('section *').hide();
-    $('section').fadeIn(400, function () {
-      $('h1').fadeIn(800);
-      $('#message').delay(500).fadeIn(600);
-      $('.from').delay(1000).fadeIn(400);
-      $('#snowman').delay(800).fadeIn(400);
-      $('.music-toggle').fadeIn(400);
-    });
+sendBtn.onclick = () => {
+  const name = document.getElementById("shareName").value || "Santa";
+  const message =
+    document.getElementById("shareMessage").value ||
+    "Wishing you a Merry Christmas and a Happy New Year!";
 
-    // Music toggle (click required by browsers)
-    const music = document.getElementById('bgMusic');
-    let playing = false;
+  const baseUrl = window.location.origin + window.location.pathname;
+  const shareUrl =
+    `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(message)}`;
 
-    $('.music-toggle').on('click', function () {
-      if (!playing) {
-        music.play();
-        $(this).text('🔕 Mute');
-      } else {
-        music.pause();
-        $(this).text('🔔 Music');
+  const whatsappText =
+    `🎄 Merry Christmas!\n\nOpen your card:\n${shareUrl}`;
+
+  const whatsappUrl =
+    `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
+
+  window.open(whatsappUrl, "_blank");
+  modal.style.display = "none";
+};
+
+const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+
+musicToggle.onclick = () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.textContent = '🔊 Music On';
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = '🔇 Music Off';
+  }
+};
+
+
+  // ❄️ Canvas snow
+  const canvas = document.getElementById("snow");
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const flakes = Array.from({ length: 130 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 0.5,
+    s: Math.random() * 0.6 + 0.3
+  }));
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    ctx.beginPath();
+
+    flakes.forEach(f => {
+      ctx.moveTo(f.x, f.y);
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      f.y += f.s;
+      if (f.y > canvas.height) {
+        f.y = -5;
+        f.x = Math.random() * canvas.width;
       }
-      playing = !playing;
     });
-  });
+
+    ctx.fill();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 </script>
 
 </body>
