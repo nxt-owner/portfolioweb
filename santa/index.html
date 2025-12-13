@@ -10,17 +10,17 @@
   <meta property="og:description" content="A Christmas card made just for you 🎁" />
   <meta property="og:type" content="website" />
 
-  <!-- jQuery -->
+  <!-- jQuery (required) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!-- Snowfall -->
+  <!-- Snowfall plugin -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/snowfall.jquery/1.7.0/snowfall.min.js"></script>
 
   <style>
     body {
       background-color: #4b4b4c;
       margin: 0;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -41,18 +41,10 @@
     }
 
     h1 {
-      font-family: "Dancing Script OT", cursive;
+      font-family: cursive;
       font-size: 4em;
       text-align: center;
       margin-top: 20px;
-    }
-
-    #snowman {
-      width: 80px;
-      position: absolute;
-      bottom: 80px;
-      left: 30px;
-      transform: rotateZ(5deg);
     }
 
     #message {
@@ -60,22 +52,28 @@
       font-size: 1.6em;
       margin-top: 20px;
       padding: 0 20px;
-      font-family: "Dancing Script OT", cursive;
     }
 
-    p.from {
+    #snowman {
+      width: 80px;
+      position: absolute;
+      bottom: 80px;
+      left: 30px;
+      transform: rotate(5deg);
+    }
+
+    .from {
       position: absolute;
       bottom: 20px;
       right: 30px;
       font-size: 1.8em;
-      font-family: "vshandprinted", cursive;
     }
 
     .music-toggle {
       position: absolute;
       top: 15px;
       right: 15px;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       border: none;
       padding: 8px 12px;
@@ -84,7 +82,7 @@
       font-size: 14px;
     }
 
-    /* 📱 Mobile responsive */
+    /* Mobile */
     @media (max-width: 768px) {
       section {
         width: 95%;
@@ -93,20 +91,15 @@
       }
 
       h1 {
-        font-size: 2.8em;
-      }
-
-      #snowman {
-        width: 60px;
-        bottom: 70px;
-      }
-
-      p.from {
-        font-size: 1.4em;
+        font-size: 2.6em;
       }
 
       #message {
         font-size: 1.3em;
+      }
+
+      .from {
+        font-size: 1.4em;
       }
     }
   </style>
@@ -127,7 +120,7 @@
     alt="Snowman"
   />
 
-  <p class="from">From, <span id="fromName"></span></p>
+  <div class="from">From, <span id="fromName"></span></div>
 
   <!-- Background Music -->
   <audio id="bgMusic" loop>
@@ -138,30 +131,19 @@
 <script>
   $(document).ready(function () {
 
-    // Parse URL after /santa/
-    const path = decodeURIComponent(window.location.pathname);
-    const params = path.split('/').pop();
+    // ✅ GitHub Pages–safe query parsing
+    const params = new URLSearchParams(window.location.search);
 
-    let name = 'Santa';
-    let message = 'Wishing you joy, warmth, and a little Christmas magic ✨';
+    const name = params.get('name') || 'Santa';
+    const message =
+      params.get('msg') ||
+      'Wishing you joy, warmth, and a little Christmas magic ✨';
 
-    if (params.includes('name=')) {
-      const pairs = params.split('&');
-      pairs.forEach(p => {
-        if (p.startsWith('name=')) {
-          name = p.replace('name=', '');
-        }
-        if (p.startsWith('msg=')) {
-          message = p.replace('msg=', '');
-        }
-      });
-    }
+    $('#fromName').text(decodeURIComponent(name));
+    $('#message').text(decodeURIComponent(message));
 
-    $('#fromName').text(name);
-    $('#message').text(message);
-
-    // Snow
-    snowFall.snow($('section'), {
+    // ✅ Snowfall MUST be attached to body
+    $(document).snowfall({
       minSize: 1,
       maxSize: 8,
       round: true,
@@ -174,12 +156,13 @@
     $('section *').hide();
     $('section').fadeIn(400, function () {
       $('h1').fadeIn(800);
-      $('#message').delay(600).fadeIn(600);
-      $('.from').delay(1200).fadeIn(400);
-      $('#snowman').delay(1000).fadeIn(400);
+      $('#message').delay(500).fadeIn(600);
+      $('.from').delay(1000).fadeIn(400);
+      $('#snowman').delay(800).fadeIn(400);
+      $('.music-toggle').fadeIn(400);
     });
 
-    // Music toggle
+    // Music toggle (click required by browsers)
     const music = document.getElementById('bgMusic');
     let playing = false;
 
