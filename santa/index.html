@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Merry Christmas!</title>
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Merry Christmas!" />
+  <meta property="og:description" content="A Christmas card just for you 🎄" />
+  <meta property="og:type" content="website" />
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Snowfall plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/snowfall.jquery/1.7.0/snowfall.min.js"></script>
+
+  <style>
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      background-color: rgba(75, 75, 76, 1);
+      font-size: 62.5%;
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      background: url(https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/winter.jpg);
+      width: 700px;
+      height: 500px;
+      color: white;
+      position: relative;
+      margin: 60px auto;
+      overflow: hidden;
+    }
+
+    #snowman {
+      width: 13%;
+      margin-bottom: -47%;
+      margin-left: 5%;
+      transform: rotateZ(5deg);
+    }
+
+    h1 {
+      font-family: "Dancing Script OT", cursive;
+      font-size: 5em;
+      padding-top: 0.5em;
+      text-align: center;
+    }
+
+    p {
+      font-size: 37px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin-right: 10%;
+      margin-bottom: 5%;
+      font-family: "vshandprinted", cursive;
+    }
+
+    span {
+      font-family: "Dancing Script OT", cursive;
+      font-weight: bold;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<section>
+  <h1>Merry Christmas!</h1>
+
+  <img
+    src="https://codecademy-content.s3.amazonaws.com/courses/web-beginner-en-9xjis/images/snowman.png"
+    id="snowman"
+    alt="Snowman"
+  />
+
+  <p><span>From,</span> <span id="fromName"></span></p>
+</section>
+
+<script>
+  $(document).ready(function () {
+    // Extract name from URL
+    const path = window.location.pathname;
+    let name = path.split('/').pop();
+
+    if (!name) {
+      name = 'Santa';
+    }
+
+    name = decodeURIComponent(name);
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+
+    $('#fromName').text(name);
+
+    // Snow effect
+    snowFall.snow($('section'), {
+      minSize: 1,
+      maxSize: 8,
+      round: true,
+      minSpeed: 1,
+      maxSpeed: 2,
+      flakeCount: 120
+    });
+
+    // Animations
+    $('body, section, h1, p').hide();
+
+    $('body').delay(300).fadeIn();
+    $('section').delay(400).fadeIn();
+    $('h1').delay(500).fadeIn(1000);
+    $('p').delay(1500).fadeIn(250);
+  });
+</script>
+
+</body>
+</html>
