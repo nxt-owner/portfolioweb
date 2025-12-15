@@ -2303,3 +2303,26 @@ function sharePreset(message) {
   const waLink = "https://wa.me/?text=" + fullMsg;
   window.open(waLink, "_blank");
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toast = document.getElementById('touch-toast');
+    const music = document.getElementById('bg-music');
+
+    if (!toast || !music) return;
+
+    const startAudio = () => {
+        music.volume = 0.2;
+        music.play().catch(() => {});
+        toast.remove();
+    };
+
+    // Start audio on first interaction
+    document.addEventListener('click', startAudio, { once: true });
+    document.addEventListener('touchstart', startAudio, { once: true });
+
+    // Auto-remove toast after 3 seconds
+    setTimeout(() => {
+        if (toast) toast.remove();
+    }, 3000);
+});
