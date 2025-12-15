@@ -1,544 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>Merry Christmas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Preconnect for faster image loading -->
-    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 
-      <!-- Open Graph Meta Tags for Social Sharing -->
-  <meta property="og:title" content="Merry Christmas & Happy New Year 🎄" />
-  <meta property="og:description" content="A personalized Christmas greeting card made with love. Share your own festive message!" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://techlasiya.com/santa" />
-  
-  <!-- OG Image - Replace with your actual image URL -->
-  <meta property="og:image" content="https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/santa/og.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:alt" content="Merry Christmas and Happy New Year greeting card with festive design" />
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1a1f71;
-            /* deeper twilight blue */
-            font-family: Georgia, serif;
-            overflow: hidden;
-        }
-
-        /* Snow canvas */
-        canvas {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Card */
-        .card {
-            position: relative;
-            z-index: 2;
-            width: 95%;
-            max-width: 960px;
-            aspect-ratio: 16 / 9;
-            background-color: #1a1f71;
-            /* Fallback color */
-            background-image: linear-gradient(135deg, #1a1f71 0%, #0c1142 100%);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 18px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 60px 40px;
-            color: #4c7f80;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out, background-image 0.5s ease;
-            filter: blur(0);
-        }
-
-        /* Loading animation */
-        .card.loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            margin: -20px 0 0 -20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: #33bd78;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 3;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .card.loaded {
-            filter: blur(0);
-        }
-
-        /* Sleigh motion illusion */
-        @keyframes sleighMove {
-            0% {
-                background-position: 0% center;
-            }
-
-            50% {
-                background-position: 100% center;
-            }
-
-            100% {
-                background-position: 0% center;
-            }
-        }
-
-        .title {
-            padding-top: 30%;
-            text-align: center;
-            letter-spacing: 0.35em;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            margin: 0;
-            color: #18ad04;
-            /* warm gold */
-        }
-
-        .subtitle {
-            text-align: center;
-            letter-spacing: 0.4em;
-            font-size: 0.9rem;
-            color: #2c9e9c;
-            margin-top: 8px;
-        }
-
-        .message {
-            margin-top: 40px;
-            text-align: center;
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            padding: 0 20px;
-        }
-
-        .footer {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .from {
-            font-style: italic;
-            font-size: 1.1rem;
-        }
-
-        .share {
-            border: none;
-            background: #33bd7869;
-            color: #004646;
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            backdrop-filter: blur(6px);
-        }
-
-        .share:active {
-            transform: scale(0.96);
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .modal-content {
-            background: #ffffff;
-            width: 90%;
-            max-width: 360px;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            color: #333;
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            color: #0b2a81;
-        }
-
-        .modal-content input,
-        .modal-content textarea {
-            width: 100%;
-            padding: 10px 12px;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        .modal-actions {
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .modal-actions button {
-            flex: 1;
-            border: none;
-            padding: 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #cancelShare {
-            background: #eee;
-        }
-
-        #sendShare {
-            background: #25d366;
-            color: white;
-        }
-
-        /* Music Toggle */
-        #musicToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 5;
-            background: #33bd7869;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-            backdrop-filter: blur(6px);
-            border: none;
-        }
-
-        /* Made with love link */
-        .footer-link {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            font-size: 14px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .footer-link a {
-            color: #33bd78;
-            text-decoration: none;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-            .card {
-                padding: 100px 20px;
-                animation: sleighMove 20s linear infinite;
-            }
-
-            .footer {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .title {
-                padding-top: 50%;
-            }
-
-            #musicToggle {
-                top: 10px;
-                right: 10px;
-                padding: 8px 14px;
-                font-size: 12px;
-            }
-        }
-    </style>
+    <title>Christmas Website</title>
 </head>
 
 <body>
-    <!-- Hidden preloader -->
-    <div id="imagePreloader" style="display:none;">
-        <img src="https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp" alt="preload"
-            crossorigin="anonymous">
-    </div>
+    <canvas id="snow-canvas"></canvas>
 
-    <canvas id="snow"></canvas>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <img src="assets/img/logo.png" alt="logo image">
+                Christmas
+            </a>
 
-    <!-- Top-right Music Toggle button -->
-    <button id="musicToggle">🔊 Music On</button>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link">Home</a>
+                    </li>
 
-    <!-- Background music -->
-    <audio id="bgMusic" src="carol-of-the-bells_short-1-263249.mp3" loop preload="auto"></audio>
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">About</a>
+                    </li>
 
-    <!-- Bottom-center site link -->
-    <div class="footer-link">
-        Made with ❤️ by <a href="https://techlasiya.com" target="_blank">Tech Lasya</a>
-    </div>
+                    <li class="nav__item">
+                        <a href="#send" class="nav__link">Send</a>
+                    </li>
 
-    <div class="card" id="christmasCard">
-        <h1 class="title">MERRY CHRISTMAS</h1>
-        <div class="subtitle">& HAPPY NEW YEAR</div>
+                    <li class="nav__item">
+                        <a href="#celebrate" class="nav__link">Celebrate</a>
+                    </li>
+                </ul>
 
-        <div class="message" id="message"></div>
+                <!-- Close button -->
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
 
-        <div class="footer">
-            <div class="from">— <span id="fromName"></span></div>
-            <button class="share" id="shareBtn">🔗 Create New</button>
-        </div>
-    </div>
-
-    <!-- Share Modal -->
-    <div id="shareModal" class="modal">
-        <div class="modal-content">
-            <h3>Share this card 🎄</h3>
-
-            <input type="text" id="shareName" placeholder="Your name" />
-
-            <textarea id="shareMessage" placeholder="Your message" rows="3"></textarea>
-
-            <div class="modal-actions">
-                <button id="cancelShare">Cancel</button>
-                <button id="sendShare">Send via WhatsApp</button>
+                <img src="assets/img/snow-img.png" alt="nav image" class="nav__img-1">
+                <img src="assets/img/snow-img.png" alt="nav image" class="nav__img-2">
             </div>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-apps-2-line"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+            <h1 class="home__title">Merry Christmas</h1>
+
+            <img src="assets/img/home-moon.png" alt="home image" class="home__moon parallax" data-rellax-speed="-15">
+            <img src="assets/img/home-trineo-santa.png" alt="home image" class="home__trineo parallax"
+            data-rellax-speed="-2">
+            <img src="assets/img/home-mountain-3.png" alt="home image" class="home__mountain-3 parallax"
+            data-rellax-speed="-8">
+            <img src="assets/img/home-mountain-2.png" alt="home image" class="home__mountain-2 parallax"
+            data-rellax-speed="-8">
+            <img src="assets/img/home-pine-tree.png" alt="home image" class="home__pine parallax"
+            data-rellax-speed="-10">
+            <img src="assets/img/home-village.png" alt="home image" class="home__village parallax"
+            data-rellax-speed="-10">
+            <img src="assets/img/tree.png" alt="christmas tree" class="home__christmas-tree parallax"
+            data-rellax-speed="-5">
+            <img src="assets/img/home-snow.png" alt="home image" class="home__snow parallax">
+            <img src="assets/img/home-mountain-1.png" alt="home image" class="home__mountain-1">
+        </section>
+
+        <!--==================== ABOUT ====================-->
+       <section class="about section" id="about">
+    <div class="about__container container grid">
+        <div class="about__data">
+            <h2 class="section__title">
+                From: <span id="fromName">Santa</span>
+            </h2>
+
+            <p class="about__description" id="message">
+                May your season be calm, bright, and full of quiet joy.
+            </p>
+
+            <a href="#" class="button" id="shareBtn">
+                Share Now
+            </a>
+        </div>
+
+        <img src="assets/img/about-christmas.png" alt="about image" class="about__img">
+
+        <img src="assets/img/snow-img.png" alt="about image" class="about__snow-1">
+        <img src="assets/img/snow-img.png" alt="about image" class="about__snow-2">
+    </div>
+    <div id="shareModal" class="share-modal">
+    <div class="share-modal__content">
+        <h3>Share this card 🎄</h3>
+
+        <input type="text" id="shareName" placeholder="Your name" />
+
+        <textarea id="shareMessage" placeholder="Your message" rows="3"></textarea>
+
+        <div class="share-modal__actions">
+            <button id="cancelShare" class="btn-cancel">Cancel</button>
+            <button id="copyLink" class="btn-copy">Copy Link</button>
+            <button id="sendShare" class="btn-send">Send via WhatsApp</button>
+
         </div>
     </div>
+</div>
 
-    <script>
-        // 🎁 URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const name = params.get("name") || "Santa";
-        const msg =
-            params.get("msg") ||
-            "May your season be calm, bright, and full of quiet joy.";
+</section>
 
-        document.getElementById("fromName").textContent = decodeURIComponent(name);
-        document.getElementById("message").textContent = decodeURIComponent(msg);
 
-        // Get DOM elements
-        const card = document.getElementById('christmasCard');
-        const modal = document.getElementById("shareModal");
-        const shareBtn = document.getElementById("shareBtn");
-        const cancelBtn = document.getElementById("cancelShare");
-        const sendBtn = document.getElementById("sendShare");
-        const musicToggle = document.getElementById('musicToggle');
-        const bgMusic = document.getElementById('bgMusic');
 
-        // ===== OPTIMIZED BACKGROUND IMAGE LOADING =====
-        function loadBackgroundImage() {
-            // Show card immediately with gradient fallback
-            setTimeout(() => {
-                card.style.opacity = 1;
-                card.classList.remove('loading');
-            }, 100);
+        <!--==================== SEND ====================-->
+        <section class="send section" id="send">
+            <h2 class="section__title">
+                Send Love This <br>
+                Christmas
+            </h2>
 
-            // Load actual image in background
-            const imageUrl = 'https://cdn.jsdelivr.net/gh/nxt-owner/portfolioweb/santa/santa.webp';
+            <div class="send__container container grid">
+                <div class="send__card">
+                    <img src="assets/img/send-night.png" alt="send image" class="send__img">
 
-            // Create image with optimization flags
-            const bgImage = new Image();
-            bgImage.loading = 'eager';
-            bgImage.decoding = 'async';
-            bgImage.crossOrigin = 'anonymous';
+                    <h3 class="send__title">Spend It With Family</h3>
 
-            // Optional: Use a smaller image for mobile
-            // if (window.innerWidth <= 600) {
-            //   imageUrl = imageUrl.replace('.webp', '-mobile.webp');
-            // }
+                    <p class="send__description">
+                        Sharing with family is the
+                        best gift you can give.
+                    </p>
+                </div>
 
-            bgImage.src = imageUrl;
+                <div class="send__card">
+                    <img src="assets/img/send-gifts.png" alt="send image" class="send__img">
 
-            // Add loading class for visual indicator
-            card.classList.add('loading');
+                    <h3 class="send__title">Give Lots Of Love</h3>
 
-            bgImage.onload = () => {
-                // Apply the actual image
-                card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
-                card.classList.remove('loading');
-                card.classList.add('loaded');
+                    <p class="send__description">
+                        Send a gift and a lot of love
+                        to those most in need.
+                    </p>
+                </div>
 
-                // Optional: Trigger a small animation when image loads
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.8s ease, background-image 0.3s ease';
-                }, 50);
-            };
+                <div class="send__card">
+                    <img src="assets/img/send-santa.png" alt="send image" class="send__img">
 
-            bgImage.onerror = () => {
-                // If image fails, keep gradient background
-                console.log('Background image failed to load, using gradient fallback');
-                card.classList.remove('loading');
-                card.classList.add('loaded');
-            };
+                    <h3 class="send__title">Share Good Wishes</h3>
 
-            // Fallback timeout in case image takes too long
-            setTimeout(() => {
-                if (card.classList.contains('loading')) {
-                    card.style.backgroundImage = `url('${imageUrl}'), linear-gradient(135deg, #1a1f71 0%, #0c1142 100%)`;
-                    card.classList.remove('loading');
-                    card.classList.add('loaded');
-                }
-            }, 2000);
-        }
+                    <p class="send__description">
+                        Wish good messages to loved
+                        ones this Christmas.
+                    </p>
+                </div>
 
-        // Start loading the background image
-        loadBackgroundImage();
+                <img src="assets/img/snow-img.png" alt="send image" class="send__snow-1">
+                <img src="assets/img/snow-img.png" alt="send image" class="send__snow-2">
+                <img src="assets/img/snow-img.png" alt="send image" class="send__snow-3">
+            </div>
 
-        // ===== SHARE FUNCTIONALITY =====
-        shareBtn.onclick = () => {
-            modal.style.display = "flex";
-        };
+        </section>
 
-        cancelBtn.onclick = () => {
-            modal.style.display = "none";
-        };
+        <!--==================== CELEBRATE ====================-->
+        <section class="celebrate section" id="celebrate">
+            <div class="celebrate__container container grid">
+                <div class="celebrate__data">
+                    <h2 class="section__title">
+                        Celebrate With A <br>
+                        Lot Of Love
+                    </h2>
 
-        sendBtn.onclick = () => {
-            const name = document.getElementById("shareName").value || "Santa";
-            const message =
-                document.getElementById("shareMessage").value ||
-                "Wishing you a Merry Christmas and a Happy New Year!";
+                    <p class="celebrate__description">
+                        In this holidays, celebrate with much love and peace,
+                        offering many blessings to our loved ones, friends
+                        and neighbors, wishing them a good Christmas message.
+                    </p>
 
-            const baseUrl = window.location.origin + window.location.pathname;
-            const shareUrl =
-                `${baseUrl}?name=${encodeURIComponent(name)}&msg=${encodeURIComponent(message)}`;
+                    <a href="#" class="button">
+                        Celebrate Now
+                    </a>
+                </div>
 
-            const whatsappText =
-                `🎄 Merry Christmas!\n\nOpen your card:\n${shareUrl}`;
+                <img src="assets/img/celebarte-church.png" alt="celebrate image" class="celebrate__img">
 
-            const whatsappUrl =
-                `https://wa.me/?text=${encodeURIComponent(whatsappText)}`;
+                <img src="assets/img/snow-img.png" alt="celebrate image" class="celebrate__snow-1">
+                <img src="assets/img/snow-img.png" alt="celebrate image" class="celebrate__snow-2">
+            </div>
+        </section>
+    </main>
 
-            window.open(whatsappUrl, "_blank");
-            modal.style.display = "none";
-        };
+    <!--==================== FOOTER ====================-->
+    <footer class="footer">
+        <div class="footer__container container">
+            <a href="#" class="footer__logo">Christmas</a>
 
-        // ===== MUSIC TOGGLE =====
-        // Auto-play music with user interaction
-        let musicPlayed = false;
+            <ul class="footer__social">
+                <li>
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                </li>
 
-        function initMusic() {
-            // Try to play music on first user interaction
-            document.addEventListener('click', function initMusicOnce() {
-                if (!musicPlayed && bgMusic.paused) {
-                    bgMusic.play().then(() => {
-                        musicPlayed = true;
-                    }).catch(e => {
-                        console.log("Autoplay prevented:", e);
-                    });
-                }
-                document.removeEventListener('click', initMusicOnce);
-            }, { once: true });
-        }
+                <li>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                </li>
 
-        musicToggle.onclick = () => {
-            if (bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    musicToggle.textContent = '🔊 Music On';
-                }).catch(e => {
-                    console.log("Play failed:", e);
-                });
-            } else {
-                bgMusic.pause();
-                musicToggle.textContent = '🔇 Music Off';
-            }
-        };
+                <li>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                </li>
+            </ul>
 
-        // Initialize music on load
-        window.addEventListener('DOMContentLoaded', initMusic);
+            <span class="footer__copy">
+                &#169; Copyright Bedimcode. All rights reserved
+            </span>
 
-        // ===== SNOW ANIMATION =====
-        const canvas = document.getElementById("snow");
-        const ctx = canvas.getContext("2d");
+            <img src="assets/img/snow-img.png" alt="footer image" class="footer__snow-1">
+            <img src="assets/img/snow-img.png" alt="footer image" class="footer__snow-2">
+        </div>
+    </footer>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener("resize", resize);
-        resize();
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
 
-        const flakes = Array.from({ length: 130 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 2 + 0.5,
-            s: Math.random() * 0.6 + 0.3
-        }));
+    <!--=============== RELLAX JS ===============-->
+    <script src="assets/js/rellax.min.js"></script>
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255,255,255,0.75)";
-            ctx.beginPath();
+    <!--=============== GSAP ===============-->
+    <script src="assets/js/gsap.min.js"></script>
 
-            flakes.forEach(f => {
-                ctx.moveTo(f.x, f.y);
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-                f.y += f.s;
-                if (f.y > canvas.height) {
-                    f.y = -5;
-                    f.x = Math.random() * canvas.width;
-                }
-            });
+    <!--=============== SCROLLREVEAL ===============-->
+    <script src="assets/js/scrollreveal.min.js"></script>
 
-            ctx.fill();
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        // ===== PERFORMANCE OPTIMIZATION =====
-        // Reduce animations when page is not visible
-        document.addEventListener('visibilitychange', function () {
-            if (document.hidden) {
-                // Pause music when tab is not visible
-                if (!bgMusic.paused) {
-                    bgMusic.pause();
-                    musicToggle.textContent = '🔇 Music Off (Tab Hidden)';
-                }
-            }
-        });
-
-        // Preload for faster sharing
-        window.addEventListener('load', function () {
-            // Preload WhatsApp sharing assets
-            const whatsappIcon = new Image();
-            whatsappIcon.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIuMDMgMTIuMDNsMS4xMyAxLjEzYy4xOC4xOC4zOS4zMi42MS40My43OC40NSAxLjY4LjY3IDIuNTguNjcgMS40NCAwIDIuODgtLjU2IDMuOTYtMS41NiAxLjA4LTEgMS42NC0yLjUyIDEuNjQtMy45NiAwLTEuNDQtLjU2LTIuODgtMS42NC0zLjk2UzE1LjQ0IDQgMTQgNGE0Ljk1IDQuOTUgMCAwMC0zLjk2IDEuNjRjLS4yMS4yMS0uNC40NC0uNTYuNjhMOC40NCA4LjQ0bDEuMTMgMS4xMy0uNzIgMi4xNmwyLjE2LS43ek0xNCAyYzEuOTggMCAzLjk0Ljc3IDUuNCAyLjE4IDEuNDYgMS40MSAyLjIyIDMuMzcgMi4yMiA1LjQyczAtMy45NS0yLjIyLTUuNEMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnMtMy45NC43Ny01LjQgMi4xOEM3LjE0IDUuNTkgNi4zOCA3LjU1IDYuMzggOS41N3MuNzYgMy45NSAyLjIyIDUuMzljMS40NiAxLjQxIDMuNDIgMi4xOCA1LjQgMi4xOCAxLjQyIDAgMi44LS40MiAzLjk2LTEuMjQuMzktLjI0Ljc0LS41MyAxLjA1LS44Ny4zMS4xOC42NS4zMSAxIC4zMSAxLjEgMCAyLS45IDItMiAwLS41NS0uMjItMS4wNS0uNTgtMS40MS41Ni0uNTguOTktMS4yMyAxLjI2LTEuOTMuNTctMS40NC44Ni0yLjk2Ljg2LTQuNTcgMC0xLjk4LS43Ny0zLjk0LTIuMjItNS4zNUMxNy45NCAyLjc3IDE1Ljk4IDIgMTQgMnoiLz48L3N2Zz4=';
-        });
-    </script>
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/snow.js"></script>
 </body>
 
 </html>
