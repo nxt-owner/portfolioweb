@@ -140,7 +140,7 @@ sendBtn.onclick = async () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "yCZt9vcNqiYTYInfrBlKCXyxy9qmxb0YZjjV4XXyYaMh4RBvNyNinp1ZRk4a"
+                "Authorization": "BeareryCZt9vcNqiYTYInfrBlKCXyxy9qmxb0YZjjV4XXyYaMh4RBvNyNinp1ZRk4a"
             },
             body: JSON.stringify({ url: shareUrl })
         });

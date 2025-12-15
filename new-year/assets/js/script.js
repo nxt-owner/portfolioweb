@@ -2297,11 +2297,35 @@ function toggleSharePopup() {
   document.getElementById("sharePopup").classList.toggle("show");
 }
 
-function sharePreset(message) {
-  const url = window.location.href;
-  const fullMsg = encodeURIComponent(message + url);
-  const waLink = "https://wa.me/?text=" + fullMsg;
-  window.open(waLink, "_blank");
+async function sharePreset(message) {
+  const longUrl = window.location.href;
+  const apiKey = "yCZt9vcNqiYTYInfrBlKCXyxy9qmxb0YZjjV4XXyYaMh4RBvNyNinp1ZRk4a";
+
+  try {
+    const response = await fetch("https://api.tinyurl.com/create", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        url: longUrl,
+        domain: "tinyurl.com"
+      })
+    });
+
+    const data = await response.json();
+
+    const shortUrl = data.data.tiny_url;
+    const fullMsg = encodeURIComponent(message + shortUrl);
+
+    window.open("https://wa.me/?text=" + fullMsg, "_blank");
+
+  } catch (error) {
+    // Fallback if API fails
+    const fullMsg = encodeURIComponent(message + longUrl);
+    window.open("https://wa.me/?text=" + fullMsg, "_blank");
+  }
 }
 
 
