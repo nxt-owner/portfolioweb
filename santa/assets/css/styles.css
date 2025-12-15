@@ -735,9 +735,15 @@ img {
     right: 4rem;
   }
 
-  .footer__copy {
-    margin-top: 4rem;
-  }
+ .footer__copy {
+    font-family: var(--second-font, "Dancing Script"), cursive; /* festive feel */
+    font-size: 0.95rem;
+    color: #fff; /* or adjust to your footer colors */
+    text-align: center;
+    display: block;
+    margin-top: 1rem;
+}
+
 
   .scrollup {
     right: 3rem;
