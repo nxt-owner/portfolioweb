@@ -275,6 +275,7 @@ img {
 }
 
 .home__village,
+.home__christmas-tree,
 .home__pine,
 .home__moon,
 .home__trineo {
@@ -288,8 +289,11 @@ img {
   bottom: 1rem;
 }
 .home__christmas-tree {
+  
   bottom: 10px;
 }
+
+
 
 .home__pine {
   width: 250px;

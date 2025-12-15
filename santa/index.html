@@ -7,10 +7,10 @@
     <!-- Open Graph / WhatsApp Preview -->
     <meta property="og:title" content="🎄 Christmas Greetings Card">
     <meta property="og:description" content="Open your personalized Christmas message ❄️">
-    <meta property="og:image" content="https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/santa/preview.png">
+    <meta property="og:image"
+        content="https://raw.githubusercontent.com/nxt-owner/portfolioweb/refs/heads/main/santa/preview.png">
     <meta property="og:url" content="https://techlasiya.com/santa/">
     <meta property="og:type" content="website">
-
 
     <!--=============== FAVICON ===============-->
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
@@ -26,6 +26,10 @@
 
 <body>
     <canvas id="snow-canvas"></canvas>
+<audio id="bg-music" autoplay loop>
+    <source src="/santa/assets/audio/christmas-440431.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
     <!--==================== HEADER ====================-->
     <header class="header" id="header">
@@ -42,7 +46,7 @@
                     </li>
 
                     <li class="nav__item">
-                        <a href="#about" class="nav__link">About</a>
+                        <a href="#about" class="nav__link">Share</a>
                     </li>
 
                     <li class="nav__item">
@@ -88,7 +92,7 @@
             <img src="assets/img/home-village.png" alt="home image" class="home__village parallax"
                 data-rellax-speed="-10">
             <img src="assets/img/tree.png" alt="christmas tree" class="home__christmas-tree parallax"
-                data-rellax-speed="-5">
+                data-rellax-speed="-7">
             <img src="assets/img/home-snow.png" alt="home image" class="home__snow parallax">
             <img src="assets/img/home-mountain-1.png" alt="home image" class="home__mountain-1">
         </section>
@@ -199,7 +203,7 @@
                         and neighbors, wishing them a good Christmas message.
                     </p>
 
-                    <a href="#" class="button">
+                    <a href="https://techlasiya.com/new-year" class="button">
                         Celebrate Now
                     </a>
                 </div>
@@ -219,27 +223,27 @@
 
             <ul class="footer__social">
                 <li>
-                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                    <a href="https://www.facebook.com/blackcat.techlasiya/" target="_blank" class="footer__social-link">
                         <i class="ri-facebook-fill"></i>
                     </a>
                 </li>
 
                 <li>
-                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
-                        <i class="ri-instagram-fill"></i>
+                    <a href="https://t.me/techlasiya" target="_blank" class="footer__social-link">
+                        <i class="ri-telegram-fill"></i>
                     </a>
                 </li>
 
                 <li>
-                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
-                        <i class="ri-twitter-fill"></i>
+                    <a href="https://www.youtube.com/@Lasiya_Tech" target="_blank" class="footer__social-link">
+                        <i class="ri-youtube-fill"></i>
                     </a>
                 </li>
             </ul>
 
             <span class="footer__copy">
-    Made with ❤️✨ by Love Tech Lasiya
-</span>
+                Made with ❤️✨ by Love Tech Lasiya
+            </span>
 
 
             <img src="assets/img/snow-img.png" alt="footer image" class="footer__snow-1">
