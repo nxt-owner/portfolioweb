@@ -1,56 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>Live Player</title>
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
-
-        #video {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            background: #000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Player</title>
+  
+  <!-- Shaka Player -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.min.js"></script>
+  <style>
+    body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+    video { width: 100vw; height: 100vh; object-fit: contain; }
+  </style>
 </head>
-
 <body>
+  <video id="video" controls autoplay playsinline></video>
 
-    <video id="video" controls autoplay></video>
+  <script>
+    (function() {
+      // Initialize player
+      shaka.polyfill.installAll();
+      
+      const video = document.getElementById('video');
+      const player = new shaka.Player(video);
 
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        const video = document.getElementById('video');
-        const streamURL = "https://satoshi-cors.herokuapp.com/http://tvn2.chowdhury-shaheb.com/tsport/tracks-v1a1/mono.m3u8";
+      // The working video URL from your original page
+      const videoUrl = "https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/client/ents/dash/index.html?__hdnea__=st=1744709463~exp=1744731063~acl=/*~hmac=6e8f9d3a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0";
 
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(streamURL);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamURL;
-            video.addEventListener('loadedmetadata', () => {
-                video.play();
-            });
-        } else {
-            document.body.innerHTML = "⚠️ Your browser does not support HLS playback.";
-        }
-    </script>
+      // Load and play
+      player.load(videoUrl).then(() => {
+        console.log('Video is playing');
+      }).catch(error => {
+        console.error('Error loading video:', error);
+        video.src = videoUrl; // Fallback
+      });
 
+    })();
+  </script>
 </body>
-
 </html>
