@@ -1,40 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Video Player</title>
-  
-  <!-- Shaka Player -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.min.js"></script>
-  <style>
-    body { margin: 0; padding: 0; background: #000; overflow: hidden; }
-    video { width: 100vw; height: 100vh; object-fit: contain; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Stream Player</title>
+
+<!-- HLS.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+body {
+    margin: 0;
+    background: #0f0f0f;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.player-container {
+    width: 95%;
+    max-width: 900px;
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+.title {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.status {
+    color: #00ff88;
+    font-size: 14px;
+    margin-top: 8px;
+}
+</style>
 </head>
+
 <body>
-  <video id="video" controls autoplay playsinline></video>
 
-  <script>
-    (function() {
-      // Initialize player
-      shaka.polyfill.installAll();
-      
-      const video = document.getElementById('video');
-      const player = new shaka.Player(video);
+<div class="player-container">
+    <div class="title">🔴 Live Stream</div>
+    <video id="video" controls autoplay></video>
+    <div class="status" id="status">Loading stream...</div>
+</div>
 
-      // The working video URL from your original page
-      const videoUrl = "https://live-pv-ta.amazon.fastly-edge.com/lhr-nitro/live/client/ents/dash/index.html?__hdnea__=st=1744709463~exp=1744731063~acl=/*~hmac=6e8f9d3a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0";
+<script>
+const video = document.getElementById('video');
+const status = document.getElementById('status');
+const videoSrc = "http://tvn1.chowdhury-shaheb.com/starsport2/index.m3u8";
 
-      // Load and play
-      player.load(videoUrl).then(() => {
-        console.log('Video is playing');
-      }).catch(error => {
-        console.error('Error loading video:', error);
-        video.src = videoUrl; // Fallback
-      });
+if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+        video.play();
+        status.innerText = "Stream Connected ✅";
+    });
+    hls.on(Hls.Events.ERROR, function (event, data) {
+        status.innerText = "Stream Error ❌";
+    });
+} 
+else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+    video.addEventListener('loadedmetadata',function() {
+        video.play();
+        status.innerText = "Stream Connected ✅";
+    });
+}
+else {
+    status.innerText = "HLS not supported in this browser ❌";
+}
+</script>
 
-    })();
-  </script>
 </body>
 </html>
